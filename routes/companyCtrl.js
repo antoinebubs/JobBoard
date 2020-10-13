@@ -5,20 +5,20 @@ var db = require('../dbconnection');
 //Routes
 module.exports = {
 
-    register: function (req, res) {
+    registerCompany: function (req, res) {
         //implement
         var Email = req.body.Email;
         var MDP = req.body.MDP;
-        var Nom = req.body.Nom;
-        var Prénom = req.body.Prénom;
-        var Formation = req.body.Formation;
+        var Employeur = req.body.Employeur;
+        var Description = rq.body.Description;
+        
 
-        if (Email == null || MDP == null || Nom == null || Prénom == null || Formation == null) {
+        if (Email == null || MDP == null || Employeur == null || Description == null) {
             return res.status(400).json({ error: 'missing parameters' });
 
         }
 
-        db.query("SELECT * FROM demandeurs WHERE Email=?", [Email], function (err, result) {
+        db.query("SELECT * FROM employeurs WHERE Email=?", [Email], function (err, result) {
             if (err) {
                
                 return res.json("error");
@@ -29,7 +29,7 @@ module.exports = {
                     return res.status(500).json({ error: `l'utilisateur existe déja` });
                 }
 
-                db.query(`INSERT INTO demandeurs (Nom, Prénom, Email, MDP, Formation) VALUES ('${Nom}', '${Prénom}', '${Email}', '${MDP}', '${Formation}')`, function (err, userCreate) {
+                db.query(`INSERT INTO employeurs (Employeur, Email, MDP, Description) VALUES ('${Employeur}', '${Description}', '${Email}', '${MDP}')`, function (err, userCreate) {
                     if (err) {
                         return res.json(err)
                     } else {
@@ -41,12 +41,12 @@ module.exports = {
     },
 
 
-    login: function (req, res) {
+    loginCompany: function (req, res) {
         //implement
         var Email = req.body.Email;
         var MDP = req.body.MDP;
 
-        db.query("SELECT * FROM demandeurs WHERE Email=?", [Email], function (err, result) {
+        db.query("SELECT * FROM employeurs WHERE Email=?", [Email], function (err, result) {
             if (err) {
                
                 return res.json({error:`mot de passe ou email incorrect`});
@@ -64,16 +64,15 @@ module.exports = {
         });
     },
 
-    update: function (req, res) {
+    updateCompany: function (req, res) {
         // implement
         var ID = req.body.ID;
         var Email = req.body.Email;
         var MDP = req.body.MDP;
-        var Nom = req.body.Nom;
-        var Prénom = req.body.Prénom;
-        var Formation = req.body.Formation;
+        var Employeur = req.body.Employeur;
+        var Description = rq.body.Description;
         
-        db.query(`UPDATE demandeurs SET Email = '${Email}', MDP = '${MDP}', Nom = '${Nom}', Prénom = '${Prénom}', Formation = '${Formation}' WHERE ID = ${ID}`, function ( err, result){
+        db.query(`UPDATE employeurs SET Email = '${Email}', MDP = '${MDP}',Description = '${Description}',Employeur= '${Employeur}' WHERE ID = ${ID}`, function ( err, result){
             if (err) {
 
             return res.json({error: err});
@@ -83,11 +82,11 @@ module.exports = {
 
         },
     
-    remove: function (req, res) {
+    removeCompany: function (req, res) {
         //implement
         var ID = req.body.ID;
         
-        db.query(`DELETE FROM demandeurs WHERE ID=?`,[ID], function (err, result){
+        db.query(`DELETE FROM employeurs WHERE ID=?`,[ID], function (err, result){
             if (err) {
 
             return res.json({error: err});
