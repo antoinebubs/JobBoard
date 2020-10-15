@@ -5,20 +5,21 @@ var db = require('../dbconnection');
 //Routes
 module.exports = {
 
-    registerCompany: function (req, res) {
-        //implement
-        var Email = req.body.Email;
-        var MDP = req.body.MDP;
-        var Employeur = req.body.Employeur;
-        var Description = req.body.Description;
-        
 
-        if (Email == null || MDP == null || Employeur == null || Description == null) {
-            return res.status(400).json({ error: 'missing parameters' });
+    registerApplicant: function (req, res) {
+        //implement
+        var IDAdds = req.body.IDAdds;
+        var IDpostulant = req.body.IDpostulants;
+        var Msg = req.body.Msg;
+       
+
+        if (IDAdds == null || IDpostulant == null || Msg == null) {
+            
+            return res.status(400).json({ error: 'missing parameter' });
 
         }
 
-        db.query("SELECT * FROM employeurs WHERE Email=?", [Email], function (err, result) {
+        db.query("SELECT * FROM postulants WHERE IDAdds=?", [IDAdds], function (err, result) {
             if (err) {
                
                 return res.json("error");
@@ -29,22 +30,24 @@ module.exports = {
                     return res.status(500).json({ error: `l'utilisateur existe déja` });
                 }
 
-                db.query(`INSERT INTO employeurs (Employeur, Email, MDP, Description) VALUES ('${Employeur}', '${Description}', '${Email}', '${MDP}')`, function (err, userCreate) {
+                db.query(`INSERT INTO postulants (Nom, Prénom, Email, MDP, Formation) VALUES ('${Nom}', '${Prénom}', '${Email}', '${MDP}', '${Formation}')`, function (err, userCreate) {
                     if (err) {
                         return res.json(err)
-                    } else {
+                    } 
+                    else {
                         return res.json(userCreate);
                     }
                 })
             }
         });
     },
-    readCompany : function(req,res) {
+
+   /* readApplicant : function(req,res) {
         //implement
         var ID = req.body.ID;
        
 
-        db.query(`SELECT * FROM employeurs WHERE ID=?`,[ID], function(err,result) {
+        db.query(`SELECT * FROM postulants WHERE ID=?`,[ID], function(err,result) {
             if (err) {
                 return res.json(err);
             }
@@ -56,14 +59,14 @@ module.exports = {
 
     },
 
-    loginCompany: function (req, res) {
+    loginApplicant: function (req, res) {
         //implement
         var Email = req.body.Email;
         var MDP = req.body.MDP;
 
-        db.query("SELECT * FROM employeurs WHERE Email=?", [Email], function (err, result) {
+        db.query("SELECT * FROM postulants WHERE Email=?", [Email], function (err, result) {
             if (err) {
-               //console.log(MDP,Email);
+               
                 return res.json({error:`mot de passe ou email incorrect`});
 
             }
@@ -79,17 +82,17 @@ module.exports = {
         });
     },
 
-    updateCompany: function (req, res) {
+    updateApplicant: function (req, res) {
         // implement
         var ID = req.body.ID;
         var Email = req.body.Email;
         var MDP = req.body.MDP;
-        var Employeur = req.body.Employeur;
-        var Description = req.body.Description;
+        var Nom = req.body.Nom;
+        var Prénom = req.body.Prénom;
+        var Formation = req.body.Formation;
         
-        db.query(`UPDATE employeurs SET Email = '${Email}', MDP = '${MDP}',Description = '${Description}',Employeur= '${Employeur}' WHERE ID = ${ID}`, function ( err, result){
+        db.query(`UPDATE postulants SET Email = '${Email}', MDP = '${MDP}', Nom = '${Nom}', Prénom = '${Prénom}', Formation = '${Formation}' WHERE ID = ${ID}`, function ( err, result){
             if (err) {
-
             return res.json({error: err});
             }
             return res.json(result);
@@ -97,16 +100,21 @@ module.exports = {
 
         },
     
-    removeCompany: function (req, res) {
+    removeApplicant: function (req, res) {
         //implement
         var ID = req.body.ID;
         
-        db.query(`DELETE FROM employeurs WHERE ID=?`,[ID], function (err, result){
+        db.query(`DELETE FROM postulants WHERE ID=?`,[ID], function (err, result){
             if (err) {
 
             return res.json({error: err});
             }
             return res.json(result);
             });
-    },
+        },
+     }
+    */
+    
+
+
 }

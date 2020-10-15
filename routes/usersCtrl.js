@@ -14,7 +14,8 @@ module.exports = {
         var Formation = req.body.Formation;
 
         if (Email == null || MDP == null || Nom == null || Prénom == null || Formation == null) {
-            return res.status(400).json({ error: 'missing parameters' });
+            console.log(Email,MDP,Nom,Prénom,Formation);
+            return res.status(400).json({ error: 'missing parameter' });
 
         }
 
@@ -40,6 +41,22 @@ module.exports = {
         });
     },
 
+    read : function(req,res) {
+        //implement
+        var ID = req.body.ID;
+       
+
+        db.query(`SELECT * FROM demandeurs WHERE ID=?`,[ID], function(err,result) {
+            if (err) {
+                return res.json(err);
+            }
+            else {
+                return res.json(result);
+            }
+        });
+
+
+    },
 
     login: function (req, res) {
         //implement
@@ -75,7 +92,6 @@ module.exports = {
         
         db.query(`UPDATE demandeurs SET Email = '${Email}', MDP = '${MDP}', Nom = '${Nom}', Prénom = '${Prénom}', Formation = '${Formation}' WHERE ID = ${ID}`, function ( err, result){
             if (err) {
-
             return res.json({error: err});
             }
             return res.json(result);

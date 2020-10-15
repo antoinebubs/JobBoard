@@ -9,7 +9,7 @@ module.exports = {
         //implement
         var Titre = req.body.Titre;
         var Description = req.body.Description;
-        var Employeur= req.body.Employeur;
+        var EmployeurID= req.body.EmployeurID;
 
         if(Titre == null || Description == null) {
             
@@ -21,7 +21,7 @@ module.exports = {
                 
                 return res.json({error:`y'a un soucis`})
             }
-            db.query(`INSERT INTO jobadds (Titre, Description, Employeur) VALUES ('${Titre}', '${Description}', '${Employeur}')`, function (err, AddCreate) {
+            db.query(`INSERT INTO jobadds (Titre, Description, EmployeurID) VALUES ('${Titre}', '${Description}', '${EmployeurID}')`, function (err, AddCreate) {
                 if (err) {
                    
                     return res.json({error: `y'a un soucis`})
@@ -33,41 +33,32 @@ module.exports = {
             
         });
     },
-
-
-    loginAdds: function (req, res) {
+    readAdds : function(req,res) {
         //implement
-        var Email = req.body.Email;
-        var MDP = req.body.MDP;
+        var ID = req.body.ID;
+       
 
-        db.query("SELECT * FROM employeurs WHERE Email=?", [Email], function (err, result) {
+        db.query(`SELECT * FROM jobAdds WHERE ID=?`,[ID], function(err,result) {
             if (err) {
-               
-                return res.json({error:`mot de passe ou email incorrect`});
-
+                return res.json(err);
             }
             else {
-                
-                if(result[0].MDP == MDP){
-                    return res.json(result);
-                }
-                else {
-                return res.json({error:'mot de passe ou email incorrect'});
-                }
+                return res.json(result);
             }
         });
+
+
     },
+
 
     updateAdds: function (req, res) {
         // implement
         var ID = req.body.ID;
-        var Email = req.body.Email;
-        var MDP = req.body.MDP;
         var Titre = req.body.Titre;
         var Desccription = req.body.Description;
 
         
-        db.query(`UPDATE jobAdds SET Titre = '${Email}', MDP = '${MDP}', Titre = '${Titre}',Description = '${Desccription}' WHERE ID = ${ID}`, function ( err, result){
+        db.query(`UPDATE jobAdds SET Titre = '${Titre}',Description = '${Desccription}' WHERE ID = ${ID}`, function ( err, result){
             if (err) {
 
             return res.json({error: err});
