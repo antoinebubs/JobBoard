@@ -33,6 +33,19 @@ module.exports = {
             
         });
     },
+
+    readallAdds : function(req,res){
+        
+        db.query(`SELECT * FROM jobAdds`, function(err,result) {
+            if(err){
+                return res.json(err);
+            }
+            else
+
+            return res.json(result);
+        });
+    },
+
     readAdds : function(req,res) {
         //implement
         var ID = req.body.ID;

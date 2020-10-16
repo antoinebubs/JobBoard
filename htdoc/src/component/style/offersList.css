@@ -1,0 +1,26 @@
+.Offers {
+    border: solid black 2px;
+    margin: 5px;
+    display: flex;
+}
+
+.offerList {
+    margin: 27.5px;
+}
+
+#offersTitle {
+    padding: 5px;
+    text-decoration: underline;
+}
+
+#offersImg {
+    border: solid black 1px;
+}
+
+#offersDescription {
+    padding: 5px;
+}
+
+#offersText {
+    margin: 0px;
+}

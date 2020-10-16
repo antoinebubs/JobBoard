@@ -1,0 +1,20 @@
+.container {
+    width: 90%;
+    margin: 0 auto;
+}
+
+#logo {
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+#messagebox {
+    height:200px;
+    align-items: top;
+    padding-bottom: 170px;
+    font-size:12pt;
+}
+
+#title {
+    font-size:14pt;
+}

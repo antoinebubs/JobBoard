@@ -3,7 +3,7 @@ var express = require('express');
 var usersCtrl = require('./routes/usersCtrl');
 var addsCtrl = require('./routes/addsCtrl');
 var companyCtrl= require('./routes/companyCtrl');
-const applicantsCtrl = require('./routes/applicantsCtrl');
+var applicantsCtrl = require('./routes/applicantsCtrl');
 //Router
 exports.router = (function() {
     var Rooter = express.Router();
@@ -22,6 +22,7 @@ exports.router = (function() {
     Rooter.route('/readAdds').post(addsCtrl.readAdds);
     Rooter.route('/updateAdds').post(addsCtrl.updateAdds);
     Rooter.route('/removeAdds').post(addsCtrl.removeAdds);
+    Rooter.route('/readallAdds').get(addsCtrl.readallAdds);
 
     //Companies routes
 
@@ -34,6 +35,10 @@ exports.router = (function() {
     //Applicants routes
 
     Rooter.route('/registerApplicant').post(applicantsCtrl.registerApplicant);
+    Rooter.route('/readApplicant').post(applicantsCtrl.readApplicant);
+    Rooter.route('/updateApplicant').post(applicantsCtrl.updateApplicant);
+    Rooter.route('/removeApplicant').post(applicantsCtrl.removeApplicant);
+    
 
     return Rooter;
 
